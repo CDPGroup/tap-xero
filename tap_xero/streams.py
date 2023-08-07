@@ -33,7 +33,7 @@ def _make_request(ctx, tap_stream_id, filter_options=None, attempts=0):
     try:
         return _request_with_timer(tap_stream_id, ctx.client, filter_options)
     except HTTPError as e:
-        if e.response.status_code == 401:
+        if e.response.status_code == 400 and 'invalid_grant' in e.response.text :
             if attempts == 1:
                 raise Exception("Received Not Authorized response after credential refresh.") from e
             ctx.refresh_credentials()
