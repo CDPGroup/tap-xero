@@ -63,7 +63,10 @@ class Stream():
         stream = ctx.catalog.get_stream(self.tap_stream_id)
         schema = stream.schema.to_dict()
         mdata = stream.metadata
+        organisation = self.client.tenant_id
         for rec in records:
+            if self.tap_stream_id == "accounts":
+                rec["OrganisationID"] = organisation
             with Transformer() as transformer:
                 rec = transformer.transform(rec, schema, metadata.to_map(mdata))
                 singer.write_record(self.tap_stream_id, rec)
