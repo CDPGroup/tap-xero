@@ -4,6 +4,12 @@
     "object"
   ],
   "properties": {
+    "OrganisationID": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "UserID": {
       "type": [
         "string"
