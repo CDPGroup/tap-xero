@@ -65,7 +65,8 @@ class Stream():
         mdata = stream.metadata
         organisation = ctx.client.tenant_id
         for rec in records:
-            if self.tap_stream_id == "accounts":
+            # Add org id into output. Handy when conslidating multiple :)
+            if self.tap_stream_id != "organisations":
                 rec["OrganisationID"] = organisation
             with Transformer() as transformer:
                 rec = transformer.transform(rec, schema, metadata.to_map(mdata))
